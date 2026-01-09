@@ -1,0 +1,24 @@
+{
+  "name": "gold-digger",
+  "version": "1.0.0",
+  "description": "Node.js solo project",
+  "homepage": "https://github.com/jonathanowens2424/gold-digger#readme",
+  "bugs": {
+    "url": "https://github.com/jonathanowens2424/gold-digger/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonathanowens2424/gold-digger.git"
+  },
+  "license": "ISC",
+  "author": "Jonathan Owens",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
