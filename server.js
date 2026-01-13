@@ -3,10 +3,10 @@ import http from "node:http";
 import generateGoldPrice from "./util/generateGoldPrice.js";
 import serveStatic from "./util/serveStatic.js";
 import path from "node:path";
-import fs from "node:fs";
-import sendResponse from "./util/sendResponse.js";
 
 const __dirname = import.meta.dirname;
+const publicDir = path.join(__dirname, "public");
+console.log(publicDir);
 
 const PORT = 8000;
 
