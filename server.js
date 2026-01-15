@@ -6,7 +6,6 @@ import path from "node:path";
 
 const __dirname = import.meta.dirname;
 const publicDir = path.join(__dirname, "public");
-console.log(publicDir);
 
 const PORT = 8000;
 
