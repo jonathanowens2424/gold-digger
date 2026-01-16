@@ -1,10 +1,16 @@
 const investmentForm = document.querySelector("#investment-form");
 const closeButton = document.querySelector("#close-button");
 const dialog = document.querySelector("dialog");
+const investmentSummary = document.querySelector("#investment-summary");
+
+let purchasePrice = null;
+
 investmentForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  purchasePrice = currentPrice.textContent;
+  investmentSummary.textContent = `You just bought some ounces (ozt) for $${purchasePrice}. \n You will receive
+  documentation shortly.`;
   dialog.showModal();
-  console.log("You invested!");
 });
 
 closeButton.addEventListener("click", () => {
