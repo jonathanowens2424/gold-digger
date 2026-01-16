@@ -26,7 +26,7 @@ const server = http.createServer(async (req, res) => {
           goldPrice: goldPrice,
         })}\n\n`
       );
-    }, 1000);
+    }, 5000);
   }
 });
 

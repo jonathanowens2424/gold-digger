@@ -2,19 +2,23 @@ const investmentForm = document.querySelector("#investment-form");
 const closeButton = document.querySelector("#close-button");
 const dialog = document.querySelector("dialog");
 const investmentSummary = document.querySelector("#investment-summary");
+const amountToInvest = document.querySelector("#investment-amount");
 
 let purchasePrice = null;
+
+//capture the amount to invest here
 
 investmentForm.addEventListener("submit", (e) => {
   e.preventDefault();
   purchasePrice = currentPrice.textContent;
-  investmentSummary.textContent = `You just bought some ounces (ozt) for $${purchasePrice}. \n You will receive
+  investmentSummary.textContent = `You just bought ${
+    amountToInvest.value / purchasePrice
+  } ounces (ozt) for $${purchasePrice}. \n You will receive
   documentation shortly.`;
   dialog.showModal();
 });
 
 closeButton.addEventListener("click", () => {
-  console.log("Test 1.");
   dialog.close();
 });
 
