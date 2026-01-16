@@ -1,1 +1,0 @@
-const eventSource = new EventSource("/");
