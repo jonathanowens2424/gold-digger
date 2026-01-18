@@ -6,6 +6,15 @@ const amountToInvest = document.querySelector("#investment-amount");
 
 let purchasePrice = null;
 
+//capture api purchases from JSON file:
+try {
+  const data = await fetch("/api");
+  const response = await data.json();
+  console.log(response);
+} catch (err) {
+  console.log(err);
+}
+
 //capture the amount to invest here
 
 investmentForm.addEventListener("submit", (e) => {
