@@ -4,6 +4,7 @@ import generateGoldPrice from "./util/generateGoldPrice.js";
 import serveStatic from "./util/serveStatic.js";
 import path from "node:path";
 import { getData } from "./util/getData.js";
+import { handleGet } from "./handlers/routeHandlers.js";
 
 const __dirname = import.meta.dirname;
 const publicDir = path.join(__dirname, "public");
@@ -13,6 +14,12 @@ const PORT = 8000;
 console.log(await getData());
 
 const server = http.createServer(async (req, res) => {
+  if (req.url === "/api") {
+    if (req.method === "GET") {
+      return handleGet(res);
+    }
+  }
+
   if (!req.url.startsWith("/live-prices")) {
     return await serveStatic(req, res, __dirname);
   } else if (req.url === "/live-prices") {

@@ -5,12 +5,12 @@ const investmentSummary = document.querySelector("#investment-summary");
 const amountToInvest = document.querySelector("#investment-amount");
 
 let purchasePrice = null;
-
+let purchases = [];
 //capture api purchases from JSON file:
 try {
   const data = await fetch("/api");
   const response = await data.json();
-  console.log(response);
+  purchases = response;
 } catch (err) {
   console.log(err);
 }
@@ -19,11 +19,24 @@ try {
 
 investmentForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  const d = new Date();
+  const timeBought = d.getTime();
+  const amountPaid = amountToInvest.value;
+  const goldSold = amountPaid / purchasePrice;
   purchasePrice = currentPrice.textContent;
+
   investmentSummary.textContent = `You just bought ${
-    amountToInvest.value / purchasePrice
-  } ounces (ozt) for $${purchasePrice}. \n You will receive
+    goldSold
+  } ounces (ozt) for $${amountPaid}. \n You will receive
   documentation shortly.`;
+
+  const goldReceipt = {
+    timeStamp: timeBought,
+    spentMoney: amountPaid,
+    ouncesSold: goldSold,
+    currentPrice: purchasePrice,
+  };
+
   dialog.showModal();
 });
 
