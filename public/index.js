@@ -17,7 +17,7 @@ try {
 
 //capture the amount to invest here
 
-investmentForm.addEventListener("submit", (e) => {
+investmentForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const d = new Date();
   const timeBought = d.getTime();
@@ -36,6 +36,18 @@ investmentForm.addEventListener("submit", (e) => {
     ouncesSold: goldSold,
     currentPrice: purchasePrice,
   };
+
+  try {
+    const response = await fetch("./api", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(goldReceipt),
+    });
+  } catch (err) {
+    console.log(err);
+  }
 
   dialog.showModal();
 });

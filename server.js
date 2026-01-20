@@ -4,7 +4,7 @@ import generateGoldPrice from "./util/generateGoldPrice.js";
 import serveStatic from "./util/serveStatic.js";
 import path from "node:path";
 import { getData } from "./util/getData.js";
-import { handleGet } from "./handlers/routeHandlers.js";
+import { handleGet, handlePost } from "./handlers/routeHandlers.js";
 
 const __dirname = import.meta.dirname;
 const publicDir = path.join(__dirname, "public");
@@ -17,6 +17,8 @@ const server = http.createServer(async (req, res) => {
   if (req.url === "/api") {
     if (req.method === "GET") {
       return handleGet(res);
+    } else if (req.method === "POST") {
+      return handlePost(req, res);
     }
   }
 

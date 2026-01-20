@@ -8,6 +8,7 @@ export async function getData() {
     const parsedJSON = JSON.parse(data);
     return parsedJSON;
   } catch (err) {
+    console.log(err);
     return [];
   }
 }
