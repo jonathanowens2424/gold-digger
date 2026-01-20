@@ -18,12 +18,13 @@ try {
 //capture the amount to invest here
 
 investmentForm.addEventListener("submit", async (e) => {
+  console.log("submitted");
   e.preventDefault();
+  purchasePrice = currentPrice.textContent;
   const d = new Date();
   const timeBought = d.getTime();
   const amountPaid = amountToInvest.value;
   const goldSold = amountPaid / purchasePrice;
-  purchasePrice = currentPrice.textContent;
 
   investmentSummary.textContent = `You just bought ${
     goldSold
@@ -38,7 +39,8 @@ investmentForm.addEventListener("submit", async (e) => {
   };
 
   try {
-    const response = await fetch("./api", {
+    console.log("Post recieved");
+    const response = await fetch("/api", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,6 +48,7 @@ investmentForm.addEventListener("submit", async (e) => {
       body: JSON.stringify(goldReceipt),
     });
   } catch (err) {
+    console.log("Hello");
     console.log(err);
   }
 
@@ -64,6 +67,4 @@ eventSource.onmessage = (event) => {
   const goldPrice = data.goldPrice;
   currentPrice.textContent = goldPrice;
 };
-eventSource.onerror = (err) => {
-  console.log(err);
-};
+eventSource.onerror = (err) => {};

@@ -22,15 +22,15 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  if (!req.url.startsWith("/live-prices")) {
-    return await serveStatic(req, res, __dirname);
-  } else if (req.url === "/live-prices") {
+  if (req.url === "/live-prices") {
     res.statusCode = 200;
     res.setHeader("Content-Type", "text/event-stream");
     res.setHeader("Cache-Control", "no-cache");
     res.setHeader("Connection", "keep-alive");
-    setInterval(() => {
+
+    const interval = setInterval(() => {
       const goldPrice = generateGoldPrice();
+
       res.write(
         `data: ${JSON.stringify({
           event: "goldPriceUpdated",
@@ -38,7 +38,18 @@ const server = http.createServer(async (req, res) => {
         })}\n\n`,
       );
     }, 1000);
+
+    // Clean up when client disconnects
+    req.on("close", () => {
+      clearInterval(interval);
+      console.log("Client disconnected from SSE");
+    });
+
+    return; // Don't fall through
   }
+
+  // Handle static files for everything else
+  return await serveStatic(req, res, __dirname);
 });
 
 server.listen(PORT, () => console.log(`Connected on port: ${PORT}`));

@@ -11,4 +11,13 @@ export async function handleGet(res) {
 
 export async function handlePost(req, res) {
   console.log("POST request received.");
+  sendResponse(
+    res,
+    200,
+    "application/json",
+    JSON.stringify({
+      success: true,
+      message: "Investment recorded",
+    }),
+  );
 }
