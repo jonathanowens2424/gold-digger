@@ -39,7 +39,8 @@ investmentForm.addEventListener("submit", async (e) => {
   };
 
   try {
-    console.log("Post recieved");
+    console.log("Post received");
+
     const response = await fetch("/api", {
       method: "POST",
       headers: {
@@ -47,11 +48,11 @@ investmentForm.addEventListener("submit", async (e) => {
       },
       body: JSON.stringify(goldReceipt),
     });
-  } catch (err) {
-    console.log("Hello");
-    console.log(err);
-  }
 
+    console.log("Response:", response); // 👈 Check the response too
+  } catch (err) {
+    console.log("Error caught:", err);
+  }
   dialog.showModal();
 });
 

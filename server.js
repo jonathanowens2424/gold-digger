@@ -6,6 +6,7 @@ import path from "node:path";
 import { getData } from "./util/getData.js";
 import { handleGet, handlePost } from "./handlers/routeHandlers.js";
 import sendResponse from "./util/sendResponse.js";
+import parseJSONBody from "./util/parseJSONBody.js";
 
 const __dirname = import.meta.dirname;
 const publicDir = path.join(__dirname, "public");
@@ -16,26 +17,12 @@ console.log(await getData());
 
 const server = http.createServer(async (req, res) => {
   //loading chunks
-  if (req.url === "/api" && req.method === "POST") {
-    console.log("Loading chunks");
-    let body = "";
-    for await (const chunk of req) {
-      body += chunk;
-    }
-    try {
-      const receiptObj = JSON.parse(body);
-      sendResponse(res, 201, "application/json", JSON.stringify(receiptObj));
-    } catch (err) {
-      console.log("Invalid JSON, ", err);
-    }
-    return;
-  }
 
   if (req.url === "/api") {
     if (req.method === "GET") {
       return handleGet(res);
     } else if (req.method === "POST") {
-      return handlePost(req, res);
+      return await handlePost(req, res);
     }
   }
 
